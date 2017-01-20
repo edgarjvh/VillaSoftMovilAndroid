@@ -3,4 +3,12 @@
     <string name="txtCedula">Cédula de Identidad</string>
     <string name="txtClave">Contraseña</string>
     <string name="ingresar_al_sistema">Ingresar al Sistema</string>
+    <string name="no">NO</string>
+    <string name="si">SI</string>
+    <string name="warning_must_enter_cedula">Debe ingresar la cédula de identidad</string>
+    <string name="warning_must_enter_clave">Debe ingresar su contraseña</string>
+    <string name="iniciandoSesion">Iniciando sesión. Por favor espere...</string>
+    <string name="bienvenidoCliente">Bienvenido(a)</string>
+    <string name="warning_no_user">Estimado Cliente, Usted no ha sido registrado</string>
+    <string name="warning_no_pass">Contraseña incorrecta</string>
 </resources>

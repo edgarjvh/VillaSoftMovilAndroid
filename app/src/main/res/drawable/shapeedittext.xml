@@ -2,14 +2,14 @@
     android:shape="rectangle" >
 
     <gradient
-        android:angle="90"
+        android:angle="180"
         android:centerX="50%"
         android:centerY="50%"
 
-        android:gradientRadius="1%"
-        android:endColor="#ccd6ff"
+        android:gradientRadius="2%"
+        android:endColor="#dfdfdf"
         android:centerColor="#FFFFFF"
-        android:startColor="#ccd6ff" >
+        android:startColor="#dfdfdf">
     </gradient>
     <corners android:radius="15dp">
     </corners>
