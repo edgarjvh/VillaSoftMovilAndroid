@@ -85,6 +85,7 @@ public class VillaDialog extends Dialog {
                 linButtons = findViewById(R.id.linButtons);
 
                 linButtons.setVisibility(View.GONE);
+                imgIconDialog.setImageResource(R.drawable.icon_loading);
                 imgIconDialog.setVisibility(View.GONE);
                 pbarDialog.setVisibility(View.VISIBLE);
                 lblTextDialog.setText(message);
