@@ -7,10 +7,11 @@
         android:centerY="50%"
 
         android:gradientRadius="2%"
-        android:endColor="#dfdfdf"
+        android:endColor="#f7f7f7"
         android:centerColor="#FFFFFF"
-        android:startColor="#dfdfdf">
+        android:startColor="#f7f7f7">
     </gradient>
     <corners android:radius="15dp">
     </corners>
+    <stroke android:width="4dp" android:color="#eaeaea"/>
 </shape>

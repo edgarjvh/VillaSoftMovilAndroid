@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Villa Soft Mobile</string>
+    <string name="bienvenidoCliente">Welcome</string>
+    <string name="ingresar_al_sistema">Log In</string>
+    <string name="iniciandoSesion">Logging in. Please wait...</string>
+    <string name="my_devices">My Devices</string>
+    <string name="no">NO</string>
+    <string name="prompt_cerrar_sesion">If you log off, you will no longer receive alerts for your devices. do you wish to continue?</string>
+    <string name="si">YES</string>
+    <string name="txtCedula">ID</string>
+    <string name="title_activity_act__main">Main</string>
+    <string name="txtClave">Password</string>
+    <string name="warning_must_enter_cedula">Must enter the ID</string>
+    <string name="warning_must_enter_clave">Must enter your password</string>
+    <string name="warning_no_pass">Wrong password</string>
+    <string name="warning_no_user">Dear Customer, You have not been registered</string>
+    <string name="restarting_due_lang_changed">Applying language and restarting application. Please wait...</string>
+    <string name="registrarse">Register</string>
+    <string name="txtEmail">E-Mail</string>
+    <string name="warning_must_enter_email">Must enter your e-mail</string>
+    <string name="lblRegisterAccess">ACCESS INFORMATION</string>
+    <string name="next">NEXT</string>
+    <string name="txtPasswordConfirm">Password Confirmation</string>
+    <string name="txtPassword">Password</string>
+    <string name="lblRegisterPersonal">PERSONAL INFORMATION</string>
+    <string name="send_register">SEND REGISTRATION</string>
+    <string name="txtAddress">Address</string>
+    <string name="txtFirstName">First Name</string>
+    <string name="txtLastName">Last Name</string>
+    <string name="txtPhoneNumber1">Phone Number 1</string>
+    <string name="txtPhoneNumber2">Phone Number 2</string>
+    <string name="connection_error">Connection error</string>
+    <string name="email_duplicated">This e-mail already exists</string>
+    <string name="validating_email">Validating e-mail. Please wait...</string>
+    <string name="warning_must_enter_address">Must enter your address</string>
+    <string name="warning_must_enter_first_name">Must enter your first name</string>
+    <string name="warning_must_enter_password">Must enter your password</string>
+    <string name="warning_must_enter_password_confirmation">Must confirm your password</string>
+    <string name="warning_must_enter_phone_number1">Must enter your main phone number</string>
+    <string name="warning_password_not_match">Passwords doesn\'t match</string>
+</resources>

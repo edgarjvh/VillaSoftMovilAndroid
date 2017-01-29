@@ -11,7 +11,8 @@ public class WebService {
     public Object getData(ArrayList<Object> parametros){
         Object data;
         String namespace = "http://villasoftgps.com/";
-        String direccion = "http://cctv.zuprevencion.org:9800/villasoftgpsws.asmx";
+        String direccion = "http://154.42.65.212:9000/views/villasoftgpsws.asmx";
+        //String direccion = "http://cctv:zuprevencion.org:9800/villasoftgpsws.asmx";
         String metodo = parametros.get(parametros.size() - 1).toString();
         String soapAction = namespace + metodo;
 

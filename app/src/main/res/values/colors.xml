@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <item name="celest" type="color">#0174DF</item>
+    <item name="celest_dark" type="color">#045FB4</item>
+    <item name="orange" type="color">#FE9A2E</item>
+    <item name="orange_dark" type="color">#DF7401</item>
+
+    <integer-array name="androidcolors">
+        <item>@color/celest</item>
+        <item>@color/celest_dark</item>
+        <item>@color/orange</item>
+        <item>@color/orange_dark</item>
+    </integer-array>
+
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>

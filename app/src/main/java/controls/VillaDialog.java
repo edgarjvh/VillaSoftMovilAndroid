@@ -29,6 +29,9 @@ public class VillaDialog extends Dialog {
     private Bitmap image;
     private DialogType dialogType;
 
+    int pbarVis;
+    int imgVis;
+
     public DialogListener getListener() {
         return listener;
     }
@@ -87,7 +90,11 @@ public class VillaDialog extends Dialog {
                 linButtons.setVisibility(View.GONE);
                 imgIconDialog.setImageResource(R.drawable.icon_loading);
                 imgIconDialog.setVisibility(View.GONE);
-                pbarDialog.setVisibility(View.VISIBLE);
+
+                if (pbarDialog.getVisibility() != View.VISIBLE){
+                    pbarDialog.setVisibility(View.VISIBLE);
+                }
+
                 lblTextDialog.setText(message);
                 break;
 
