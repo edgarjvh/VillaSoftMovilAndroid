@@ -11,79 +11,75 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
+
 import classes.WebService;
 import controls.VillaDialog;
 
-public class Act_RegisterAccess extends Activity {
+public class Act_ChangePassword extends Activity {
 
     private VillaDialog villaDialog;
-    private EditText txtEmail;
-    private EditText txtPassword;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_access);
+        setContentView(R.layout.activity_change_password);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        txtEmail = (EditText)findViewById(R.id.txtEmail);
-        txtPassword = (EditText)findViewById(R.id.txtPassword);
-        final EditText txtPasswordConfirmation = (EditText)findViewById(R.id.txtPasswordConfirm);
+        Bundle extras = getIntent().getExtras();
+        final String email = extras == null ? "" : extras.getString("email");
 
-        Button btnNext = (Button)findViewById(R.id.btnRegisterAccess);
+        final EditText txtPassword = (EditText)findViewById(R.id.txtPassword);
+        final EditText txtPasswordConfirm = (EditText)findViewById(R.id.txtPasswordConfirm);
+        Button btnChangePassword = (Button)findViewById(R.id.btnChangePassword);
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
+
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (txtEmail.getText().toString().trim().equals("")){
-                    String msj = getString(R.string.warning_must_enter_email);
-                    mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
-                    return;
-                }
-
                 if (txtPassword.getText().toString().trim().equals("")){
-                    String msj = getString(R.string.warning_must_enter_password);
-                    mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
+                    String mensaje = getString(R.string.warning_must_enter_password);
+                    mostrarMensaje(false,DialogType.MESSAGE,R.drawable.icon_warning,mensaje);
                     return;
                 }
 
                 if (txtPassword.getText().toString().trim().length() < 8){
-                    String msj = getString(R.string.warning_password_incomplete);
-                    mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
+                    String mensaje = getString(R.string.warning_password_incomplete);
+                    mostrarMensaje(false,DialogType.MESSAGE,R.drawable.icon_warning,mensaje);
                     return;
                 }
 
-                if (txtPasswordConfirmation.getText().toString().trim().equals("")){
+                if (txtPasswordConfirm.getText().toString().trim().equals("")){
                     String msj = getString(R.string.warning_must_enter_password_confirmation);
                     mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
                     return;
                 }
 
-                if (!txtPassword.getText().toString().trim().equals(txtPasswordConfirmation.getText().toString().trim())){
+                if (!txtPassword.getText().toString().trim().equals(txtPasswordConfirm.getText().toString().trim())){
                     String msj = getString(R.string.warning_password_not_match);
                     mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
                     return;
                 }
 
-                new AsyncEmailValidation().execute(txtEmail.getText().toString().trim());
+                new AsyncChangePassword().execute(email, txtPassword.getText().toString().trim());
             }
         });
-
-        txtEmail.requestFocus();
+        txtPassword.requestFocus();
     }
 
-    private class AsyncEmailValidation extends AsyncTask<String, Integer, Integer> {
+    private class AsyncChangePassword extends AsyncTask<String, Integer, Integer> {
         @Override
         protected Integer doInBackground(String... params) {
             publishProgress(0);
 
-            ArrayList<Object> parametros = new ArrayList<>(2);
+            ArrayList<Object> parametros = new ArrayList<>(3);
             parametros.add(0, "email*" + params[0]);
-            parametros.add(1, "EmailValidation");
+            parametros.add(1, "password*" + params[1]);
+            parametros.add(2, "ChangePassword");
 
             WebService ws = new WebService();
             Object response = ws.getData(parametros);
@@ -97,18 +93,12 @@ public class Act_RegisterAccess extends Activity {
                     case "OK":
                         publishProgress(1);
                         return 1;
-                    case "EXISTS UNVALIDATED":
-                        publishProgress(2);
-                        return 1;
-                    case "EXISTS VALIDATED":
-                        publishProgress(3);
-                        return 1;
                     default:
-                        publishProgress(4);
+                        publishProgress(2);
                         return 0;
                 }
             } catch (JSONException e) {
-                publishProgress(4);
+                publishProgress(2);
                 return 0;
             }
         }
@@ -124,31 +114,10 @@ public class Act_RegisterAccess extends Activity {
                     mostrarMensaje(false,DialogType.PROGRESS,0, mensaje);
                     break;
                 case 1:
-                    Intent frm = new Intent(Act_RegisterAccess.this,Act_RegisterPersonal.class);
-                    frm.putExtra("email",txtEmail.getText().toString().trim());
-                    frm.putExtra("password",txtPassword.getText().toString().trim());
-                    startActivity(frm);
-
-                    if (villaDialog != null){
-                        villaDialog.dismiss();
-                        villaDialog = null;
-                    }
+                    mensaje = getString(R.string.password_changed);
+                    mostrarMensaje(true,DialogType.MESSAGE,R.drawable.icon_ok,mensaje);
                     break;
                 case 2:
-                    frm = new Intent(Act_RegisterAccess.this,Act_RegisterValidation.class);
-                    frm.putExtra("email",txtEmail.getText().toString().trim());
-                    startActivity(frm);
-
-                    if (villaDialog != null){
-                        villaDialog.dismiss();
-                        villaDialog = null;
-                    }
-                    break;
-                case 3:
-                    mensaje = getString(R.string.email_duplicated);
-                    mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_warning, mensaje);
-                    break;
-                case 4:
                     mensaje = getString(R.string.connection_error);
                     mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_error, mensaje);
                     break;
@@ -176,7 +145,7 @@ public class Act_RegisterAccess extends Activity {
                     villaDialog = null;
                 }
 
-                villaDialog = new VillaDialog(Act_RegisterAccess.this, VillaDialog.DialogType.MESSAGE, message,icon);
+                villaDialog = new VillaDialog(Act_ChangePassword.this, VillaDialog.DialogType.MESSAGE, message,icon);
                 villaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 villaDialog.setCanceledOnTouchOutside(false);
                 villaDialog.show();
@@ -188,7 +157,14 @@ public class Act_RegisterAccess extends Activity {
 
                     @Override
                     public void onFinish() {
+                        Intent frm = new Intent(Act_ChangePassword.this,Act_Login.class);
+                        startActivity(frm);
+                        finish();
 
+                        if(villaDialog != null) {
+                            villaDialog.dismiss();
+                            villaDialog = null;
+                        }
                     }
                 };
                 timer.start();
@@ -199,7 +175,7 @@ public class Act_RegisterAccess extends Activity {
                         villaDialog = null;
                     }
 
-                    villaDialog = new VillaDialog(Act_RegisterAccess.this, VillaDialog.DialogType.PROGRESS, message);
+                    villaDialog = new VillaDialog(Act_ChangePassword.this, VillaDialog.DialogType.PROGRESS, message);
                     villaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     villaDialog.setCanceledOnTouchOutside(false);
                     villaDialog.show();
@@ -210,7 +186,7 @@ public class Act_RegisterAccess extends Activity {
                         villaDialog = null;
                     }
 
-                    villaDialog = new VillaDialog(Act_RegisterAccess.this, VillaDialog.DialogType.MESSAGE, message, icon);
+                    villaDialog = new VillaDialog(Act_ChangePassword.this, VillaDialog.DialogType.MESSAGE, message, icon);
                     villaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     villaDialog.setCanceledOnTouchOutside(true);
                     villaDialog.show();

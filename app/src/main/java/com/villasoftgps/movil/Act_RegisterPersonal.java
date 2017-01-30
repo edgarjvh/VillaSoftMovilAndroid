@@ -2,11 +2,13 @@ package com.villasoftgps.movil;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,11 +24,14 @@ import controls.VillaDialog;
 public class Act_RegisterPersonal extends Activity {
 
     private VillaDialog villaDialog;
+    private String email,password,firstName,lastName,phoneNumber1,phoneNumber2,address;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__register_personal);
+        setContentView(R.layout.activity_register_personal);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         final EditText txtFirstName = (EditText)findViewById(R.id.txtFirstName);
         final EditText txtLastName = (EditText)findViewById(R.id.txtLastName);
@@ -57,19 +62,27 @@ public class Act_RegisterPersonal extends Activity {
                 }
 
                 Bundle extras = getIntent().getExtras();
+                email = extras == null ? "" : extras.getString("email");
+                password = extras == null ? "" : extras.getString("password");
+                firstName = txtFirstName.getText().toString().trim();
+                lastName = txtLastName.getText().toString().trim().equals("") ? "0" : txtLastName.getText().toString().trim();
+                phoneNumber1 = txtPhoneNumber1.getText().toString().trim();
+                phoneNumber2 = txtPhoneNumber2.getText().toString().trim().equals("") ? "0" : txtPhoneNumber2.getText().toString().trim();
+                address = txtAddress.getText().toString().trim();
 
                 if (extras != null) {
                     new AsyncSendRegistration().execute(
-                            extras.getString("email"),
-                            extras.getString("password"),
-                            txtFirstName.getText().toString().trim(),
-                            txtLastName.getText().toString().trim(),
-                            txtPhoneNumber1.getText().toString().trim(),
-                            txtPhoneNumber2.getText().toString().trim(),
-                            txtAddress.getText().toString().trim());
+                                                        email,
+                                                        password,
+                                                        firstName,
+                                                        lastName,
+                                                        phoneNumber1,
+                                                        phoneNumber2,
+                                                        address);
                 }
             }
         });
+        txtFirstName.requestFocus();
     }
 
     private class AsyncSendRegistration extends AsyncTask<String, Integer, Integer> {
@@ -95,21 +108,19 @@ public class Act_RegisterPersonal extends Activity {
 
                 String result = json.get("Result").toString();
 
+
                 switch (result) {
-                    case "OK": {
+                    case "OK":
                         publishProgress(1);
                         return 1;
-                    }
-                    case "EXISTS": {
-                        publishProgress(2);
-                        return 1;
-                    }
                     default:
-                        publishProgress(3);
+                        Log.d("EJVH result1",json.get("Message").toString());
+                        publishProgress(2);
                         return 0;
                 }
             } catch (JSONException e) {
-                publishProgress(3);
+                Log.d("EJVH result2",e.getMessage());
+                publishProgress(2);
                 return 0;
             }
         }
@@ -121,23 +132,14 @@ public class Act_RegisterPersonal extends Activity {
 
             switch (values[0]){
                 case 0:
-                    String mensaje = getString(R.string.validating_email);
+                    String mensaje = getString(R.string.registering);
                     mostrarMensaje(false,DialogType.PROGRESS,0, mensaje);
                     break;
                 case 1:
-                    Intent frm = new Intent(Act_RegisterPersonal.this,Act_RegisterPersonal.class);
-                    startActivity(frm);
-
-                    if (villaDialog != null){
-                        villaDialog.dismiss();
-                        villaDialog = null;
-                    }
+                    mensaje = getString(R.string.validation_code_updated);
+                    mostrarMensaje(true,DialogType.MESSAGE,R.drawable.icon_ok,mensaje);
                     break;
                 case 2:
-                    mensaje = getString(R.string.email_duplicated);
-                    mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_warning, mensaje);
-                    break;
-                case 3:
                     mensaje = getString(R.string.connection_error);
                     mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_error, mensaje);
                     break;
@@ -176,7 +178,15 @@ public class Act_RegisterPersonal extends Activity {
 
                     @Override
                     public void onFinish() {
+                        Intent frm = new Intent(Act_RegisterPersonal.this,Act_RegisterValidation.class);
+                        frm.putExtra("email", email);
+                        startActivity(frm);
+                        finish();
 
+                        if (villaDialog != null){
+                            villaDialog.dismiss();
+                            villaDialog = null;
+                        }
                     }
                 };
                 timer.start();

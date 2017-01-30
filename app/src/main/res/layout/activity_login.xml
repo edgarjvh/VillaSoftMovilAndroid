@@ -25,7 +25,7 @@
             android:src="@drawable/logo"
             android:scaleType="fitCenter"
             android:id="@+id/imgLogo"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="20dp"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -42,7 +42,8 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:gravity="center_horizontal|center_vertical"
-                android:textAlignment="gravity"/>
+                android:textAlignment="gravity"
+                android:maxLength="100"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -50,7 +51,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/tilPassword"
             android:layout_below="@+id/tilEmail"
-            android:background="@drawable/shapeedittext">
+            android:background="@drawable/shapeedittext"
+            android:layout_marginBottom="10dp">
             <EditText
                 android:id="@+id/txtPassword"
                 android:layout_width="match_parent"
@@ -60,16 +62,28 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:gravity="center_horizontal|center_vertical"
-                android:textAlignment="gravity"/>
+                android:textAlignment="gravity"
+                android:maxLength="15"/>
         </android.support.design.widget.TextInputLayout>
+
+        <controls.VillaTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblPasswordForgotten"
+            android:layout_below="@+id/tilPassword"
+            android:text="@string/forgot_password"
+            android:textStyle="bold|italic"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_marginBottom="20dp"
+            android:textColor="#0004ff"
+            android:textSize="16sp"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/btnLogin"
             android:textSize="16sp"
-            android:layout_below="@+id/tilPassword"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/lblPasswordForgotten"
             android:layout_marginBottom="5dp"
             android:text="@string/ingresar_al_sistema"
             android:textColor="#FFFFFF"

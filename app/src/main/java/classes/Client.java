@@ -2,7 +2,6 @@ package classes;
 
 public class Client {
     private int clientId;
-    private float id;
     private String firstName;
     private String lastName;
     private String phoneNumber1;
@@ -18,14 +17,6 @@ public class Client {
 
     public void setClientId(int clientId) {
         this.clientId = clientId;
-    }
-
-    public float getId() {
-        return id;
-    }
-
-    public void setId(float id) {
-        this.id = id;
     }
 
     public String getFirstName() {

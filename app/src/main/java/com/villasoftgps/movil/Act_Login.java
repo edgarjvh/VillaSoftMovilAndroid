@@ -24,6 +24,7 @@ import classes.Preferences;
 import classes.WebService;
 import controls.VillaDialog;
 import controls.VillaImageView;
+import controls.VillaTextView;
 
 public class Act_Login extends AppCompatActivity {
 
@@ -38,6 +39,7 @@ public class Act_Login extends AppCompatActivity {
     private String mensaje;
     private VillaDialog villaDialog;
     private EditText txtEmail,txtPassword;
+    private VillaTextView lblPasswordForgotten;
     private Gson gson;
 
     @Override
@@ -95,10 +97,19 @@ public class Act_Login extends AppCompatActivity {
 
         txtEmail = (EditText)findViewById(R.id.txtEmail);
         txtPassword = (EditText)findViewById(R.id.txtPassword);
+        lblPasswordForgotten = (VillaTextView)findViewById(R.id.lblPasswordForgotten);
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
         Button btnRegister = (Button) findViewById(R.id.btnRegister);
         Button btnSpanish = (Button) findViewById(R.id.btnSpanish);
         Button btnEnglish = (Button) findViewById(R.id.btnEnglish);
+
+        lblPasswordForgotten.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent frm = new Intent(Act_Login.this,Act_ResetPassword.class);
+                startActivity(frm);
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,11 +189,11 @@ public class Act_Login extends AppCompatActivity {
                 }
             }
         });
+        txtEmail.requestFocus();
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         moveTaskToBack(true);
     }
 
@@ -205,12 +216,11 @@ public class Act_Login extends AppCompatActivity {
                 String result = json.get("Result").toString();
 
                 switch (result) {
-                    case "OK": {
+                    case "OK":
                         JSONObject array = new JSONObject(json.get("Client").toString());
 
                         client = new Client();
                         client.setClientId(array.getInt("ClientId"));
-                        client.setId((float)array.get("Id"));
                         client.setFirstName(array.get("FirstName").toString());
                         client.setLastName(array.getString("LastName"));
                         client.setPhoneNumber1(array.getString("PhoneNumber1"));
@@ -220,27 +230,24 @@ public class Act_Login extends AppCompatActivity {
                         client.setImage(array.getString("Image"));
                         publishProgress(1);
                         return 1;
-                    }
-                    case "NO USER": {
+                    case "NO USER":
                         publishProgress(2);
                         return 1;
-                    }
-                    case "NO PASS": {
+                    case "NO PASS":
                         publishProgress(3);
                         return 1;
-                    }
-                    case "NO ROWS": {
+                    case "NO ROWS":
                         publishProgress(4);
                         return 1;
-                    }
-                    default:
-                        mensaje = json.get("Message").toString();
+                    case "UNVALIDATED":
                         publishProgress(5);
+                        return 1;
+                    default:
+                        publishProgress(6);
                         return 0;
                 }
             } catch (JSONException e) {
-                mensaje = e.getMessage();
-                publishProgress(5);
+                publishProgress(6);
                 return 0;
             }
         }
@@ -272,10 +279,11 @@ public class Act_Login extends AppCompatActivity {
                     mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_warning, mensaje,Ejecutar.DO_NOTHING);
                     break;
                 case 5:
-                    mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_error, mensaje,Ejecutar.DO_NOTHING);
+                    mensaje = getString(R.string.unvalidated);
+                    mostrarMensaje(true, DialogType.MESSAGE, R.drawable.icon_warning, mensaje,Ejecutar.VALIDATE);
                     break;
                 case 6:
-                    mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_error, mensaje,Ejecutar.DO_NOTHING);
+                    mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_error, getString(R.string.connection_error),Ejecutar.DO_NOTHING);
                     break;
             }
         }
@@ -295,10 +303,11 @@ public class Act_Login extends AppCompatActivity {
 
     private enum Ejecutar{
         DO_NOTHING,
-        RESTART_APP
+        RESTART_APP,
+        VALIDATE
     }
 
-    private void mostrarMensaje(boolean isWelcome, DialogType dialogType, int icon, String message, final Ejecutar ejecutar){
+    private void mostrarMensaje(boolean isWelcome, final DialogType dialogType, int icon, String message, final Ejecutar ejecutar){
         try{
             if(isWelcome){
                 if(villaDialog != null) {
@@ -318,12 +327,21 @@ public class Act_Login extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        txtEmail.setText(null);
-                        txtPassword.setText(null);
-                        txtEmail.requestFocus();
+                        if (ejecutar == Ejecutar.VALIDATE){
+                            Intent frm = new Intent(Act_Login.this, Act_RegisterValidation.class);
+                            frm.putExtra("email",txtEmail.getText().toString().trim());
+                            txtEmail.setText(null);
+                            txtPassword.setText(null);
+                            txtEmail.requestFocus();
+                            startActivity(frm);
+                        }else{
+                            txtEmail.setText(null);
+                            txtPassword.setText(null);
+                            txtEmail.requestFocus();
 
-                        Intent frm = new Intent(Act_Login.this, Act_Main.class);
-                        startActivity(frm);
+                            Intent frm = new Intent(Act_Login.this, Act_Main.class);
+                            startActivity(frm);
+                        }
 
                         if (villaDialog != null){
                             villaDialog.dismiss();

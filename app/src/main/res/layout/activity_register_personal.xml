@@ -20,7 +20,7 @@
         android:textSize="18sp"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="#ffffff"
-        android:background="@drawable/dialog_background"
+        android:background="@drawable/bg_activity_title"
         android:layout_marginBottom="10dp"/>
 
     <ScrollView
@@ -130,8 +130,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/txtAddress"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="textPostalAddress"
-                    android:maxLines="3"
+                    android:inputType="textMultiLine"
                     android:gravity="center_horizontal|center_vertical"
                     android:textAlignment="gravity"
                     android:drawableLeft="@drawable/icon_address"

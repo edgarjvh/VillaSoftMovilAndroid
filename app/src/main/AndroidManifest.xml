@@ -47,7 +47,11 @@
             android:name=".Act_Main"
             android:label="@string/title_activity_act__main" />
         <activity android:name=".Act_RegisterAccess" />
-        <activity android:name=".Act_RegisterPersonal"></activity>
+        <activity android:name=".Act_RegisterPersonal" />
+        <activity android:name=".Act_RegisterValidation" />
+        <activity android:name=".Act_ResetPassword" />
+        <activity android:name=".Act_ResetPasswordValidation" />
+        <activity android:name=".Act_ChangePassword"></activity>
     </application>
 
 </manifest>

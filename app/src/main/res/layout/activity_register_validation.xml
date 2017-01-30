@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_validation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/fondo"
+    tools:context="com.villasoftgps.movil.Act_RegisterValidation">
+
+    <controls.VillaTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblValidationTitle"
+        android:text="@string/lblValidation"
+        android:textStyle="bold|italic"
+        android:textSize="18sp"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="#ffffff"
+        android:background="@drawable/bg_activity_title"
+        android:layout_marginBottom="10dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblValidationTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <controls.VillaTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblValidationHint"
+                android:text="@string/lblValidationHint"
+                android:textColor="#000000"
+                android:textStyle="bold|italic"
+                android:textSize="16sp"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="20dp"/>
+
+            <controls.VillaTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblEmail"
+                android:text="@string/txtEmail"
+                android:textColor="#8f0000"
+                android:textStyle="bold|italic"
+                android:textSize="18sp"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_marginBottom="20dp"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:maxHeight="50dp"
+                android:id="@+id/tilValidationCode"
+                android:background="@drawable/shapeedittext"
+                android:padding="3dp"
+                android:layout_marginBottom="20dp">
+                <EditText
+                    android:id="@+id/txtValidatioCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/txtValidationCode"
+                    android:inputType="textNoSuggestions"
+                    android:maxLines="1"
+                    android:maxLength="8"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:drawableLeft="@drawable/icon_validation"
+                    android:drawableStart="@drawable/icon_validation"
+                    android:drawablePadding="5dp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <controls.VillaTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblGetNewCode"
+                android:text="@string/solicitar_un_nuevo_c_digo_de_validaci_n"
+                android:textStyle="bold|italic"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_marginBottom="20dp"
+                android:textColor="#0004ff"
+                android:textSize="16sp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/btnValidateCode"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/validateCode"
+                android:textStyle="bold"
+                android:background="@drawable/btn_bg_celest"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/btnCancel"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/cancel"
+                android:textStyle="bold"
+                android:background="@drawable/btn_bg_orange"/>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

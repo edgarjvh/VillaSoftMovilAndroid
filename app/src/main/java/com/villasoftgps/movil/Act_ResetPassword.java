@@ -8,82 +8,54 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
+
 import classes.WebService;
 import controls.VillaDialog;
 
-public class Act_RegisterAccess extends Activity {
+public class Act_ResetPassword extends Activity {
 
     private VillaDialog villaDialog;
     private EditText txtEmail;
-    private EditText txtPassword;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_access);
+        setContentView(R.layout.activity_reset_password);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         txtEmail = (EditText)findViewById(R.id.txtEmail);
-        txtPassword = (EditText)findViewById(R.id.txtPassword);
-        final EditText txtPasswordConfirmation = (EditText)findViewById(R.id.txtPasswordConfirm);
+        Button btnResetPassword = (Button)findViewById(R.id.btnResetPassword);
 
-        Button btnNext = (Button)findViewById(R.id.btnRegisterAccess);
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (txtEmail.getText().toString().trim().equals("")){
-                    String msj = getString(R.string.warning_must_enter_email);
-                    mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
+                    String mensaje = getString(R.string.warning_must_enter_email);
+                    mostrarMensaje(false,DialogType.MESSAGE,R.drawable.icon_warning,mensaje);
                     return;
                 }
 
-                if (txtPassword.getText().toString().trim().equals("")){
-                    String msj = getString(R.string.warning_must_enter_password);
-                    mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
-                    return;
-                }
-
-                if (txtPassword.getText().toString().trim().length() < 8){
-                    String msj = getString(R.string.warning_password_incomplete);
-                    mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
-                    return;
-                }
-
-                if (txtPasswordConfirmation.getText().toString().trim().equals("")){
-                    String msj = getString(R.string.warning_must_enter_password_confirmation);
-                    mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
-                    return;
-                }
-
-                if (!txtPassword.getText().toString().trim().equals(txtPasswordConfirmation.getText().toString().trim())){
-                    String msj = getString(R.string.warning_password_not_match);
-                    mostrarMensaje(false, DialogType.MESSAGE,R.drawable.icon_warning,msj);
-                    return;
-                }
-
-                new AsyncEmailValidation().execute(txtEmail.getText().toString().trim());
+                new AsyncResetPassword().execute(txtEmail.getText().toString().trim());
             }
         });
-
-        txtEmail.requestFocus();
     }
 
-    private class AsyncEmailValidation extends AsyncTask<String, Integer, Integer> {
+    private class AsyncResetPassword extends AsyncTask<String, Integer, Integer> {
         @Override
         protected Integer doInBackground(String... params) {
             publishProgress(0);
 
             ArrayList<Object> parametros = new ArrayList<>(2);
             parametros.add(0, "email*" + params[0]);
-            parametros.add(1, "EmailValidation");
+            parametros.add(1, "ResetPassword");
 
             WebService ws = new WebService();
             Object response = ws.getData(parametros);
@@ -97,17 +69,19 @@ public class Act_RegisterAccess extends Activity {
                     case "OK":
                         publishProgress(1);
                         return 1;
-                    case "EXISTS UNVALIDATED":
+                    case "UNVALIDATED":
                         publishProgress(2);
                         return 1;
-                    case "EXISTS VALIDATED":
+                    case "NO USER":
                         publishProgress(3);
                         return 1;
                     default:
+                        Log.d("EJVH resetting1",json.get("Message").toString());
                         publishProgress(4);
                         return 0;
                 }
             } catch (JSONException e) {
+                Log.d("EJVH resetting2",e.getMessage());
                 publishProgress(4);
                 return 0;
             }
@@ -120,36 +94,23 @@ public class Act_RegisterAccess extends Activity {
 
             switch (values[0]){
                 case 0:
-                    String mensaje = getString(R.string.validating_email);
+                    String mensaje = getString(R.string.getting_reset_password_code);
                     mostrarMensaje(false,DialogType.PROGRESS,0, mensaje);
                     break;
                 case 1:
-                    Intent frm = new Intent(Act_RegisterAccess.this,Act_RegisterPersonal.class);
-                    frm.putExtra("email",txtEmail.getText().toString().trim());
-                    frm.putExtra("password",txtPassword.getText().toString().trim());
-                    startActivity(frm);
-
-                    if (villaDialog != null){
-                        villaDialog.dismiss();
-                        villaDialog = null;
-                    }
+                    mensaje = getString(R.string.reset_password_code_updated);
+                    mostrarMensaje(true, DialogType.MESSAGE, R.drawable.icon_ok, mensaje);
                     break;
                 case 2:
-                    frm = new Intent(Act_RegisterAccess.this,Act_RegisterValidation.class);
-                    frm.putExtra("email",txtEmail.getText().toString().trim());
-                    startActivity(frm);
-
-                    if (villaDialog != null){
-                        villaDialog.dismiss();
-                        villaDialog = null;
-                    }
+                    mensaje = getString(R.string.unvalidated_email);
+                    mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_warning, mensaje);
                     break;
                 case 3:
-                    mensaje = getString(R.string.email_duplicated);
+                    mensaje = getString(R.string.warning_no_user);
                     mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_warning, mensaje);
                     break;
                 case 4:
-                    mensaje = getString(R.string.connection_error);
+                    mensaje = getString(R.string.error_getting_validation_code);
                     mostrarMensaje(false, DialogType.MESSAGE, R.drawable.icon_error, mensaje);
                     break;
             }
@@ -176,7 +137,7 @@ public class Act_RegisterAccess extends Activity {
                     villaDialog = null;
                 }
 
-                villaDialog = new VillaDialog(Act_RegisterAccess.this, VillaDialog.DialogType.MESSAGE, message,icon);
+                villaDialog = new VillaDialog(Act_ResetPassword.this, VillaDialog.DialogType.MESSAGE, message,icon);
                 villaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 villaDialog.setCanceledOnTouchOutside(false);
                 villaDialog.show();
@@ -188,7 +149,14 @@ public class Act_RegisterAccess extends Activity {
 
                     @Override
                     public void onFinish() {
+                        Intent frm = new Intent(Act_ResetPassword.this,Act_ResetPasswordValidation.class);
+                        frm.putExtra("email",txtEmail.getText().toString().trim());
+                        startActivity(frm);
 
+                        if(villaDialog != null) {
+                            villaDialog.dismiss();
+                            villaDialog = null;
+                        }
                     }
                 };
                 timer.start();
@@ -199,7 +167,7 @@ public class Act_RegisterAccess extends Activity {
                         villaDialog = null;
                     }
 
-                    villaDialog = new VillaDialog(Act_RegisterAccess.this, VillaDialog.DialogType.PROGRESS, message);
+                    villaDialog = new VillaDialog(Act_ResetPassword.this, VillaDialog.DialogType.PROGRESS, message);
                     villaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     villaDialog.setCanceledOnTouchOutside(false);
                     villaDialog.show();
@@ -210,7 +178,7 @@ public class Act_RegisterAccess extends Activity {
                         villaDialog = null;
                     }
 
-                    villaDialog = new VillaDialog(Act_RegisterAccess.this, VillaDialog.DialogType.MESSAGE, message, icon);
+                    villaDialog = new VillaDialog(Act_ResetPassword.this, VillaDialog.DialogType.MESSAGE, message, icon);
                     villaDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     villaDialog.setCanceledOnTouchOutside(true);
                     villaDialog.show();
