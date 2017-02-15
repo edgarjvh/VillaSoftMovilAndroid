@@ -19,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Locale;
-import classes.Client;
+import models.Client;
 import classes.Preferences;
 import classes.WebService;
 import controls.VillaDialog;
@@ -31,7 +31,7 @@ public class Act_Login extends AppCompatActivity {
     private SharedPreferences villaprefs;
     private SharedPreferences.Editor prefsedit;
     private static String PREFS_NAME = "villaprefs";
-    private static String PROPERTY_CLIENT = "client";
+    private static String PROPERTY_USER = "client";
     private static String PROPERTY_PREFS = "preferences";
     private Client client;
     private Preferences preferences;
@@ -47,12 +47,16 @@ public class Act_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (villaprefs == null){
-            villaprefs = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+            villaprefs = getApplicationContext().getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
         }
+
+        preferences = new Preferences();
+        client = new Client();
+        gson = new Gson();
+        prefsedit = villaprefs.edit();
 
         String sysLang = getResources().getConfiguration().locale.toString();
         final String curLang;
-        gson = new Gson();
 
         if(villaprefs.getString(PROPERTY_PREFS,"").equals("")){
             if (sysLang.contains("es")){
@@ -61,10 +65,8 @@ public class Act_Login extends AppCompatActivity {
                 curLang = "en";
             }
 
-            preferences = new Preferences();
             preferences.setLanguage(curLang);
 
-            prefsedit = villaprefs.edit();
             prefsedit.putString(PROPERTY_PREFS, gson.toJson(preferences));
             prefsedit.apply();
         }else{
@@ -82,9 +84,10 @@ public class Act_Login extends AppCompatActivity {
             }
         }
 
-        /*
-        validar preferences y status de sesion de usuario
-         */
+        if (!villaprefs.getString(PROPERTY_USER,"").equals("")){
+            Intent frm = new Intent(Act_Login.this,Act_Main.class);
+            startActivity(frm);
+        }
 
         setContentView(R.layout.activity_login);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -143,7 +146,6 @@ public class Act_Login extends AppCompatActivity {
         btnSpanish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gson = new Gson();
                 preferences = gson.fromJson(villaprefs.getString(PROPERTY_PREFS,""), Preferences.class);
 
                 if (!preferences.getLanguage().equals("es")){
@@ -168,7 +170,6 @@ public class Act_Login extends AppCompatActivity {
         btnEnglish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gson = new Gson();
                 preferences = gson.fromJson(villaprefs.getString(PROPERTY_PREFS,""), Preferences.class);
 
                 if (!preferences.getLanguage().equals("en")){
@@ -219,7 +220,6 @@ public class Act_Login extends AppCompatActivity {
                     case "OK":
                         JSONObject array = new JSONObject(json.get("Client").toString());
 
-                        client = new Client();
                         client.setClientId(array.getInt("ClientId"));
                         client.setFirstName(array.get("FirstName").toString());
                         client.setLastName(array.getString("LastName"));
@@ -304,10 +304,11 @@ public class Act_Login extends AppCompatActivity {
     private enum Ejecutar{
         DO_NOTHING,
         RESTART_APP,
-        VALIDATE
+        VALIDATE,
+        GCMREGISTER
     }
 
-    private void mostrarMensaje(boolean isWelcome, final DialogType dialogType, int icon, String message, final Ejecutar ejecutar){
+    private void mostrarMensaje(boolean isWelcome, final DialogType dialogType, int icon, final String message, final Ejecutar ejecutar){
         try{
             if(isWelcome){
                 if(villaDialog != null) {
@@ -334,12 +335,17 @@ public class Act_Login extends AppCompatActivity {
                             txtPassword.setText(null);
                             txtEmail.requestFocus();
                             startActivity(frm);
+                        }else if (ejecutar == Ejecutar.GCMREGISTER){
+                            //new AsyncRegisterGcm().execute(client.getClientId());
+
                         }else{
                             txtEmail.setText(null);
                             txtPassword.setText(null);
                             txtEmail.requestFocus();
 
                             Intent frm = new Intent(Act_Login.this, Act_Main.class);
+                            prefsedit.putString(PROPERTY_USER,gson.toJson(client));
+                            prefsedit.apply();
                             startActivity(frm);
                         }
 

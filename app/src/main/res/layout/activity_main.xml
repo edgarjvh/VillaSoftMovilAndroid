@@ -4,7 +4,8 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.villasoftgps.movil.Act_Main">
+    tools:context="com.villasoftgps.movil.Act_Main"
+    android:background="@drawable/bg_activity">
 
     <Button
         android:layout_width="30dp"
@@ -54,30 +55,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/btnStopEngine"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/icon_stopengine"
-                android:layout_gravity="center_vertical"/>
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:id="@+id/btnResumeEngine"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/icon_resumeengine"
-                android:layout_gravity="center_vertical"/>
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
                 android:id="@+id/btnLock"
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
@@ -100,51 +77,20 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <android.support.v4.widget.DrawerLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/drawer_menu"
-        android:layout_height="match_parent"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_below="@+id/relButtons">
+        android:layout_height="match_parent"
+        android:layout_below="@id/relButtons">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/relDispositivos">
-
-                <controls.VillaTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp"
-                    android:text="@string/my_devices"
-                    android:id="@+id/lblMisDispositivos"
-                    android:height="25dp"
-                    android:background="#212d9e"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:textColor="#ffee00"
-                    android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingEnd="10dp"/>
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/cboDispositivos"
-                    android:layout_below="@+id/lblMisDispositivos"/>
-            </RelativeLayout>
-
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawer_menu"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/relMapa"
-                android:layout_below="@id/relDispositivos">
-
+                android:layout_below="@+id/relDispositivos">
                 <fragment
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -153,31 +99,98 @@
                     tools:context="com.villasoftgps.movil.Act_Main" />
             </RelativeLayout>
 
-            <controls.VillaTextView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:id="@+id/lblContador"
-                android:layout_below="@+id/relDispositivos"
-                android:text="@string/_30"
-                android:textStyle="bold"
-                android:textColor="#8e0000"
-                android:gravity="center_vertical|center_horizontal"
-                android:textAlignment="gravity"
-                android:background="@drawable/contador_background"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="10dp"/>
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
-        <ListView
-            android:id="@+id/lstMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="start"
-            android:background="#FFFFFF"
-            android:textColor="#424242"
-            android:choiceMode="singleChoice"
-            android:divider="#2E2E2E"
-            android:dividerHeight="2dp"/>
-    </android.support.v4.widget.DrawerLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/relDispositivos"
+                    android:background="@android:color/transparent" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_spinner"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_marginTop="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/relLoadingDevices"
+                            android:visibility="visible">
+
+                            <controls.VillaTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cargando_dispositivos"
+                                android:textStyle="bold|italic"
+                                android:gravity="center_horizontal"
+                                android:layout_centerVertical="true"/>
+
+                            <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:id="@+id/progressBar2"
+                                android:indeterminateOnly="true"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/relNoDevices"
+                            android:visibility="gone">
+
+                            <controls.VillaTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/no_hay_dispositivos_registrados"
+                                android:textStyle="bold|italic"
+                                android:gravity="center_horizontal"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                        <Spinner
+                            android:id="@+id/cboDevices"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:spinnerMode="dropdown"
+                            android:visibility="gone"/>
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/lvDevices"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:background="@drawable/bg_listview"
+                android:textColor="#424242"
+                android:choiceMode="singleChoice"
+                android:divider="#2E2E2E"
+                android:dividerHeight="0dp"/>
+
+        </android.support.v4.widget.DrawerLayout>
+    </RelativeLayout>
 </RelativeLayout>

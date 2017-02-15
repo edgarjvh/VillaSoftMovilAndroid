@@ -7,7 +7,7 @@
     <string name="si">SI</string>
     <string name="warning_must_enter_cedula">Debe ingresar la cédula de identidad</string>
     <string name="warning_must_enter_clave">Debe ingresar su contraseña</string>
-    <string name="iniciandoSesion">Iniciando sesión. Por favor espere...</string>
+    <string name="iniciandoSesion">Iniciando sesión. Por favor espere…</string>
     <string name="bienvenidoCliente">Bienvenido(a)</string>
     <string name="warning_no_user">Estimado Cliente, Usted no ha sido registrado</string>
     <string name="warning_no_pass">Contraseña incorrecta</string>
@@ -17,7 +17,7 @@
     <string name="_30" translatable="false">30</string>
     <string name="www_villasoftgps_com" translatable="false">www.villasoftgps.com</string>
     <string name="prompt_cerrar_sesion">Si cierra la sesión dejará de recibir las alertas de sus dispositivos.\n¿Desea continuar?</string>
-    <string name="restarting_due_lang_changed">Aplicando idioma y reiniciando aplicación. Por favor espere...</string>
+    <string name="restarting_due_lang_changed">Aplicando idioma y reiniciando aplicación. Por favor espere…</string>
     <string name="registrarse">Registrarse</string>
     <string name="txtEmail">Correo Electrónico</string>
     <string name="warning_must_enter_email">Debe ingresar su correo electrónico</string>
@@ -36,7 +36,7 @@
     <string name="warning_must_enter_password_confirmation">Debe confirmar su contraseña</string>
     <string name="warning_password_not_match">Las contraseñas no coinciden</string>
     <string name="connection_error">Error de conexión</string>
-    <string name="validating_email">Validando correo electrónico. Por favor espere...</string>
+    <string name="validating_email">Validando correo electrónico. Por favor espere…</string>
     <string name="email_duplicated">Este correo electrónico ya existe</string>
     <string name="warning_must_enter_first_name">Debe ingresar su nombre</string>
     <string name="warning_must_enter_phone_number1">Debe ingresar su número telefónico principal</string>
@@ -50,15 +50,15 @@
     <string name="validation_code_updated">Se ha enviado un nuevo código a su correo electrónico. Verifique y utilícelo para confirmar su registro</string>
     <string name="validation_code_empty">Debe indicar el código</string>
     <string name="validation_code_incomplete">El código debe contener 8 caracteres</string>
-    <string name="getting_validation_code">Solicitando un nuevo código. Por favor espere...</string>
-    <string name="sending_validation_code">Enviando código. Por favor espere...</string>
+    <string name="getting_validation_code">Solicitando un nuevo código. Por favor espere…</string>
+    <string name="sending_validation_code">Enviando código. Por favor espere…</string>
     <string name="message_code_validated">El código ha sido confirmado exitosamente</string>
     <string name="wrong_validation_code">Código incorrecto</string>
     <string name="forgot_password">¿Olvidó su contraseña?</string>
     <string name="lblPasswordForgotten">OLVIDO DE CONTRASEÑA</string>
     <string name="lblPasswordForgottenHint">Se enviará un código a su correo para cambiar su contraseña</string>
     <string name="btnPasswordForgotten">RESETEAR CONTRASEÑA</string>
-    <string name="getting_reset_password_code">Solicitando un nuevo código. Por favor espere...</string>
+    <string name="getting_reset_password_code">Solicitando un nuevo código. Por favor espere…</string>
     <string name="reset_password_code_updated">Se ha enviado un nuevo código a su correo electrónico. Verifique y utilícelo para resetear su contraseña</string>
     <string name="unvalidated_email">Debe confirmar su registro antes de poder resetear su contraseña</string>
     <string name="lblResetPasswordValidation">CONFIRMAR RESETEO DE CONTRASEÑA</string>
@@ -68,7 +68,21 @@
     <string name="lblChangePassword">CAMBIO DE CONTRASEÑA</string>
     <string name="btnChangePassword">CAMBIAR CONTRASEÑA</string>
     <string name="password_changed">Su contraseña ha sido cambiada exitosamente</string>
-    <string name="registering">Enviando registro. Por favor espere...</string>
+    <string name="registering">Enviando registro. Por favor espere…</string>
     <string name="unvalidated">Debe confirmar su registro antes de poder ingresar al sistema</string>
     <string name="cancel">CANCELAR</string>
-</resources>
+    <string name="subscription">Suscripción</string>
+    <string name="cargando_dispositivos">Cargando Dispositivos…</string>
+    <string name="no_hay_dispositivos_registrados">No hay dispositivos registrados</string>
+    <string name="device">Dispositivo</string>
+    <string name="license_plate">Matrícula</string>
+    <string name="vehicle">Vehículo</string>
+    <string name="imei" translatable="false">Imei</string>
+    <string name="status" translatable="false">Status</string>
+    <string name="renewal">RENOVAR</string>
+    <string name="active">ACTIVO</string>
+    <string name="inactive">INACTIVO</string>
+    <string name="lblMyDevices">Mis Dispositivos</string>
+    <string name="mostrar">Mostrar</string>
+    <string name="editar">Editar</string>
+    </resources>

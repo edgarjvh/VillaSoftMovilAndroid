@@ -1,4 +1,6 @@
-package classes;
+package models;
+
+import java.util.ArrayList;
 
 public class Client {
     private int clientId;
@@ -10,6 +12,12 @@ public class Client {
     private String email;
     private int status;
     private String image;
+    private String gcmId;
+    private ArrayList<Device> devices;
+
+    public Client(){
+        this.devices = new ArrayList<>();
+    }
 
     public int getClientId() {
         return clientId;
@@ -81,5 +89,21 @@ public class Client {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getGcmId() {
+        return gcmId;
+    }
+
+    public void setGcmId(String gcmId) {
+        this.gcmId = gcmId;
+    }
+
+    public ArrayList<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(ArrayList<Device> devices) {
+        this.devices = devices;
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Villa Soft Mobile</string>
     <string name="bienvenidoCliente">Welcome</string>
     <string name="ingresar_al_sistema">Log In</string>
-    <string name="iniciandoSesion">Logging in. Please wait...</string>
+    <string name="iniciandoSesion">Logging in. Please wait…</string>
     <string name="my_devices">My Devices</string>
     <string name="no">NO</string>
     <string name="prompt_cerrar_sesion">If you log off, you will no longer receive alerts for your devices. do you wish to continue?</string>
@@ -15,7 +15,7 @@
     <string name="warning_must_enter_clave">Must enter your password</string>
     <string name="warning_no_pass">Wrong password</string>
     <string name="warning_no_user">Dear Customer, You have not been registered</string>
-    <string name="restarting_due_lang_changed">Applying language and restarting application. Please wait...</string>
+    <string name="restarting_due_lang_changed">Applying language and restarting application. Please wait…</string>
     <string name="registrarse">Register</string>
     <string name="txtEmail">E-Mail</string>
     <string name="warning_must_enter_email">Must enter your e-mail</string>
@@ -32,7 +32,7 @@
     <string name="txtPhoneNumber2">Phone Number 2</string>
     <string name="connection_error">Connection error</string>
     <string name="email_duplicated">This e-mail already exists</string>
-    <string name="validating_email">Validating e-mail. Please wait...</string>
+    <string name="validating_email">Validating e-mail. Please wait…</string>
     <string name="warning_must_enter_address">Must enter your address</string>
     <string name="warning_must_enter_first_name">Must enter your first name</string>
     <string name="warning_must_enter_password">Must enter your password</string>
@@ -44,8 +44,8 @@
     <string name="error_getting_validation_code">There was an error fetching the new code. Please try again</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="get_new_reset_code">Request a new code</string>
-    <string name="getting_reset_password_code">Requesting a new code. Please wait...</string>
-    <string name="getting_validation_code">Requesting a new code. Please wait...</string>
+    <string name="getting_reset_password_code">Requesting a new code. Please wait…</string>
+    <string name="getting_validation_code">Requesting a new code. Please wait…</string>
     <string name="lblChangePassword">CHANGE OF PASSWORD</string>
     <string name="lblPasswordForgotten">PASSWORD FORGOTTEN</string>
     <string name="lblPasswordForgottenHint">A code will be sent to your email to change your password</string>
@@ -55,9 +55,9 @@
     <string name="lblValidationHint">Please enter the code that was sent to your email to confirm your registration&#8230;   The validation code must contain 8 characters and is case sensitive</string>
     <string name="message_code_validated">The code has been successfully confirmed</string>
     <string name="password_changed">Your password has been successfully changed</string>
-    <string name="registering">Sending registration. Please wait...</string>
+    <string name="registering">Sending registration. Please wait…</string>
     <string name="reset_password_code_updated">A new code has been sent to your email. Verify and use it to reset your password</string>
-    <string name="sending_validation_code">Sending code. Please wait...</string>
+    <string name="sending_validation_code">Sending code. Please wait…</string>
     <string name="txtValidationCode">Enter the code</string>
     <string name="unvalidated_email">You must confirm your registration before you can reset your password</string>
     <string name="validateCode">VALIDATE CODE</string>
@@ -67,4 +67,18 @@
     <string name="warning_password_incomplete">Password must be between 8 and 15 characters</string>
     <string name="wrong_validation_code">Wrong code</string>
     <string name="solicitar_un_nuevo_c_digo_de_validaci_n">Request a new code</string>
+    <string name="cancel" tools:ignore="ButtonCase">CANCEL</string>
+    <string name="device">Device</string>
+    <string name="cargando_dispositivos">Loading Devices…</string>
+    <string name="license_plate">License Plate</string>
+    <string name="no_hay_dispositivos_registrados">No devices registered</string>
+    <string name="subscription">Subscription</string>
+    <string name="unvalidated">You must confirm your registration before login</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="active">ACTIVE</string>
+    <string name="inactive">INACTIVE</string>
+    <string name="renewal">RENEWAL</string>
+    <string name="editar">Edit</string>
+    <string name="lblMyDevices">My Devices</string>
+    <string name="mostrar">Show</string>
 </resources>

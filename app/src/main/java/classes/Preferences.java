@@ -7,6 +7,7 @@ public class Preferences {
     private boolean isLocked;
     private long lastUserInteraction;
     private String language;
+    private boolean isOnForeground;
 
     public String getRegistrationId() {
         return registrationId;
@@ -54,5 +55,13 @@ public class Preferences {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public boolean isOnForeground() {
+        return isOnForeground;
+    }
+
+    public void setOnForeground(boolean onForeground) {
+        isOnForeground = onForeground;
     }
 }
